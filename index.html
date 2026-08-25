@@ -1,0 +1,1865 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Área de Membros — Papelaria Criativa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Poppins:wght@400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --purple-800:#3B2F9E;
+    --purple-700:#4A3DC2;
+    --purple-600:#5B4FE0;
+    --purple-300:#B9B1F5;
+    --purple-100:#EEEBFF;
+    --purple-50:#F7F6FF;
+    --pink:#EC4899;
+    --orange:#F5A524;
+    --teal:#0FB5C4;
+    --green-600:#16A34A;
+    --green-500:#22C55E;
+    --green-100:#DCFCE7;
+    --ink-900:#1A1730;
+    --ink-600:#5C5875;
+    --ink-400:#8B87A3;
+    --white:#FFFFFF;
+    --line:#E9E6FA;
+    --radius-lg:22px;
+    --radius-md:16px;
+    --radius-pill:999px;
+    --shadow-sm:0 4px 14px rgba(58,45,140,.08);
+    --shadow-md:0 14px 34px rgba(58,45,140,.14);
+    --sidebar-w:264px;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Poppins', sans-serif;
+    background:var(--purple-50);
+    color:var(--ink-900);
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.font-display{
+    font-family:'Baloo 2', sans-serif;
+  }
+  img{max-width:100%; display:block;}
+  button{font-family:inherit; cursor:pointer; border:none; background:none;}
+  input{font-family:inherit;}
+  a{text-decoration:none; color:inherit;}
+  ::selection{background:var(--purple-300); color:var(--ink-900);}
+
+  /* ---------- Layout shell ---------- */
+  .app{
+    display:flex;
+    min-height:100vh;
+  }
+
+  /* ---------- Sidebar ---------- */
+  .sidebar{
+    width:var(--sidebar-w);
+    flex-shrink:0;
+    background:linear-gradient(180deg,var(--purple-700) 0%, var(--purple-800) 100%);
+    color:var(--white);
+    position:fixed;
+    top:0; left:0; bottom:0;
+    display:flex;
+    flex-direction:column;
+    padding:26px 20px;
+    z-index:60;
+    transition:transform .3s ease;
+  }
+  .sidebar-brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:4px 8px 26px;
+  }
+  .sidebar-brand-mark{
+    width:42px; height:42px;
+    border-radius:12px;
+    background:var(--white);
+    display:flex; align-items:center; justify-content:center;
+    font-size:22px;
+    box-shadow:var(--shadow-sm);
+    flex-shrink:0;
+  }
+  .sidebar-brand-text{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:16.5px;
+    line-height:1.15;
+  }
+  .sidebar-brand-text span{
+    display:block;
+    font-family:'Poppins',sans-serif;
+    font-weight:400;
+    font-size:11.5px;
+    color:var(--purple-300);
+    margin-top:2px;
+  }
+
+  .sidebar-nav{
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+    margin-top:6px;
+  }
+  .nav-label{
+    font-size:11px;
+    letter-spacing:.08em;
+    color:var(--purple-300);
+    text-transform:uppercase;
+    padding:16px 12px 8px;
+  }
+  .nav-item{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:11px 14px;
+    border-radius:12px;
+    font-size:14.5px;
+    font-weight:500;
+    color:rgba(255,255,255,.82);
+    transition:background .15s ease, color .15s ease;
+  }
+  .nav-item .ico{font-size:17px; width:20px; text-align:center;}
+  .nav-item .count{
+    margin-left:auto;
+    background:rgba(255,255,255,.14);
+    padding:2px 8px;
+    border-radius:var(--radius-pill);
+    font-size:11.5px;
+  }
+  .nav-item:hover{background:rgba(255,255,255,.08); color:var(--white);}
+  .nav-item.active{
+    background:var(--white);
+    color:var(--purple-700);
+    font-weight:600;
+    box-shadow:var(--shadow-sm);
+  }
+  .nav-item.active .count{background:var(--purple-100); color:var(--purple-700);}
+
+  .sidebar-guarantee{
+    margin-top:auto;
+    background:rgba(255,255,255,.08);
+    border:1px dashed rgba(255,255,255,.3);
+    border-radius:var(--radius-md);
+    padding:14px;
+    font-size:12px;
+    color:rgba(255,255,255,.85);
+    line-height:1.5;
+  }
+  .sidebar-guarantee b{color:var(--white); display:block; font-size:13px; margin-bottom:3px;}
+
+  /* ---------- Login screen ---------- */
+  .login-screen{
+    position:fixed; inset:0;
+    z-index:200;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    background:linear-gradient(135deg, var(--purple-600) 0%, var(--purple-700) 55%, var(--purple-800) 100%);
+  }
+  .login-card{
+    background:var(--white);
+    border-radius:var(--radius-lg);
+    padding:38px 34px 30px;
+    width:100%;
+    max-width:380px;
+    text-align:center;
+    box-shadow:var(--shadow-md);
+  }
+  .login-mark{
+    width:56px; height:56px;
+    border-radius:16px;
+    background:var(--purple-100);
+    display:flex; align-items:center; justify-content:center;
+    font-size:26px;
+    margin:0 auto 14px;
+  }
+  .login-card h1{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:20px;
+  }
+  .login-card > p{
+    font-size:13px;
+    color:var(--ink-400);
+    margin-top:4px;
+    margin-bottom:22px;
+  }
+  .login-field{display:block; text-align:left; margin-bottom:14px;}
+  .login-field span{
+    display:block;
+    font-size:12px;
+    font-weight:600;
+    color:var(--ink-600);
+    margin-bottom:6px;
+  }
+  .login-field input{
+    width:100%;
+    padding:12px 14px;
+    border-radius:12px;
+    border:1px solid var(--line);
+    font-size:13.5px;
+    outline:none;
+    transition:border-color .15s ease, box-shadow .15s ease;
+  }
+  .login-field input:focus{border-color:var(--purple-600); box-shadow:0 0 0 4px var(--purple-100);}
+  .login-btn{
+    width:100%;
+    padding:13px;
+    border-radius:var(--radius-pill);
+    background:linear-gradient(120deg, var(--purple-600), var(--purple-700));
+    color:var(--white);
+    font-weight:600;
+    font-size:14px;
+    margin-top:6px;
+    box-shadow:var(--shadow-sm);
+    transition:transform .15s ease;
+  }
+  .login-btn:hover{transform:translateY(-2px);}
+  .login-note{
+    font-size:11px;
+    color:var(--ink-400);
+    margin-top:16px;
+    line-height:1.5;
+  }
+
+  .sidebar-user{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:rgba(255,255,255,.08);
+    border-radius:12px;
+    padding:10px 12px;
+    margin:4px 0 14px;
+  }
+  .sidebar-user-avatar{
+    width:34px; height:34px;
+    border-radius:50%;
+    background:linear-gradient(135deg,var(--pink),var(--purple-300));
+    color:var(--purple-800);
+    font-family:'Baloo 2',sans-serif;
+    font-weight:700;
+    font-size:12.5px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+  .sidebar-user-text{min-width:0;}
+  .sidebar-user-name{
+    font-size:12.5px;
+    font-weight:600;
+    color:var(--white);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .sidebar-user-email{
+    font-size:10.5px;
+    color:rgba(255,255,255,.6);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    margin-top:1px;
+  }
+
+  .sidebar-close{
+    display:none;
+    position:absolute;
+    top:18px; right:18px;
+    color:var(--white);
+    font-size:20px;
+    width:32px; height:32px;
+    border-radius:50%;
+    align-items:center; justify-content:center;
+  }
+
+  .overlay{
+    display:none;
+    position:fixed; inset:0;
+    background:rgba(20,15,50,.45);
+    z-index:50;
+  }
+
+  /* ---------- Main column ---------- */
+  .main{
+    margin-left:var(--sidebar-w);
+    flex:1;
+    min-width:0;
+    display:flex;
+    flex-direction:column;
+  }
+
+  .topbar{
+    position:sticky;
+    top:0;
+    z-index:40;
+    background:rgba(247,246,255,.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+    padding:16px 34px;
+    display:flex;
+    align-items:center;
+    gap:18px;
+  }
+  .hamburger{
+    display:none;
+    width:38px; height:38px;
+    border-radius:10px;
+    background:var(--white);
+    box-shadow:var(--shadow-sm);
+    align-items:center; justify-content:center;
+    font-size:18px;
+    flex-shrink:0;
+  }
+  .topbar-title{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:19px;
+  }
+  .topbar-sub{font-size:12.5px; color:var(--ink-400); margin-top:1px;}
+
+  .search-box{
+    margin-left:auto;
+    position:relative;
+    width:340px;
+    max-width:40vw;
+  }
+  .search-box input{
+    width:100%;
+    padding:11px 16px 11px 40px;
+    border-radius:var(--radius-pill);
+    border:1px solid var(--line);
+    background:var(--white);
+    font-size:13.5px;
+    outline:none;
+    transition:border-color .15s ease, box-shadow .15s ease;
+  }
+  .search-box input:focus{border-color:var(--purple-600); box-shadow:0 0 0 4px var(--purple-100);}
+  .search-box .ico{
+    position:absolute; left:15px; top:50%; transform:translateY(-50%);
+    color:var(--ink-400); font-size:14px;
+  }
+
+  .topbar-avatar{
+    width:40px; height:40px;
+    border-radius:50%;
+    background:linear-gradient(135deg,var(--pink),var(--purple-600));
+    color:var(--white);
+    font-family:'Baloo 2',sans-serif;
+    font-weight:700;
+    display:flex; align-items:center; justify-content:center;
+    font-size:15px;
+    flex-shrink:0;
+  }
+  .topbar-bell{
+    width:38px; height:38px;
+    border-radius:50%;
+    background:var(--white);
+    box-shadow:var(--shadow-sm);
+    display:flex; align-items:center; justify-content:center;
+    font-size:16px;
+    position:relative;
+    flex-shrink:0;
+  }
+  .topbar-bell::after{
+    content:'';
+    position:absolute; top:8px; right:9px;
+    width:7px; height:7px; border-radius:50%;
+    background:var(--pink);
+    border:1.5px solid var(--white);
+  }
+
+  .content{
+    padding:30px 34px 70px;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;
+    background:linear-gradient(120deg,var(--purple-600) 0%, var(--purple-700) 65%, var(--purple-800) 100%);
+    border-radius:var(--radius-lg);
+    color:var(--white);
+    padding:34px 38px 44px;
+    overflow:hidden;
+    display:grid;
+    grid-template-columns:1.3fr 1fr;
+    gap:20px;
+    align-items:center;
+  }
+  .hero::before{
+    content:'';
+    position:absolute; inset:0;
+    background:
+      radial-gradient(220px 220px at 92% 12%, rgba(255,255,255,.14), transparent 60%),
+      radial-gradient(160px 160px at 78% 90%, rgba(255,255,255,.10), transparent 60%);
+    pointer-events:none;
+  }
+  .hero-scallop{
+    position:absolute;
+    left:0; right:0; bottom:0;
+    height:16px;
+    background:
+      radial-gradient(circle at 10px 0, transparent 10px, var(--purple-50) 10.5px) repeat-x;
+    background-size:20px 20px;
+    background-position:0 -8px;
+  }
+  .hero-eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    background:rgba(255,255,255,.16);
+    padding:6px 14px;
+    border-radius:var(--radius-pill);
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:.02em;
+    margin-bottom:14px;
+  }
+  .hero h1{
+    font-size:27px;
+    font-weight:700;
+    line-height:1.25;
+    max-width:480px;
+  }
+  .hero p{
+    font-size:14px;
+    color:rgba(255,255,255,.85);
+    margin-top:10px;
+    max-width:430px;
+    line-height:1.55;
+  }
+  .hero-progress{
+    margin-top:22px;
+    max-width:420px;
+  }
+  .hero-progress-labels{
+    display:flex;
+    justify-content:space-between;
+    font-size:12.5px;
+    margin-bottom:7px;
+    color:rgba(255,255,255,.85);
+  }
+  .hero-progress-labels b{color:var(--white); font-weight:600;}
+  .hero-progress-track{
+    height:9px;
+    border-radius:var(--radius-pill);
+    background:rgba(255,255,255,.22);
+    overflow:hidden;
+  }
+  .hero-progress-fill{
+    height:100%;
+    width:42%;
+    border-radius:var(--radius-pill);
+    background:linear-gradient(90deg,var(--green-500),#7DE39B);
+  }
+  .hero-cta{
+    margin-top:22px;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:var(--white);
+    color:var(--purple-700);
+    font-weight:600;
+    font-size:14px;
+    padding:12px 22px;
+    border-radius:var(--radius-pill);
+    box-shadow:var(--shadow-md);
+    transition:transform .15s ease;
+  }
+  .hero-cta:hover{transform:translateY(-2px);}
+
+  .hero-art{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+    position:relative;
+  }
+  .hero-box{
+    width:76px; height:76px;
+    border-radius:16px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:32px;
+    box-shadow:var(--shadow-md);
+  }
+  .hero-box:nth-child(1){background:var(--orange); transform:translateY(10px) rotate(-6deg);}
+  .hero-box:nth-child(2){background:var(--pink); transform:translateY(-14px) rotate(4deg); width:92px; height:92px; font-size:38px;}
+  .hero-box:nth-child(3){background:var(--teal); transform:translateY(14px) rotate(7deg);}
+
+  /* ---------- Stats ---------- */
+  .stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+    margin-top:22px;
+  }
+  .stat-card{
+    background:var(--white);
+    border-radius:var(--radius-md);
+    padding:18px 20px;
+    box-shadow:var(--shadow-sm);
+    display:flex;
+    align-items:center;
+    gap:14px;
+  }
+  .stat-ico{
+    width:44px; height:44px;
+    border-radius:12px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:20px;
+    flex-shrink:0;
+  }
+  .stat-card:nth-child(1) .stat-ico{background:var(--purple-100); color:var(--purple-700);}
+  .stat-card:nth-child(2) .stat-ico{background:#FFF1D6; color:#B4720A;}
+  .stat-card:nth-child(3) .stat-ico{background:var(--green-100); color:var(--green-600);}
+  .stat-num{font-family:'Baloo 2',sans-serif; font-weight:700; font-size:21px; line-height:1;}
+  .stat-label{font-size:12px; color:var(--ink-400); margin-top:4px;}
+
+  /* ---------- Section headers ---------- */
+  .section{margin-top:38px;}
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    margin-bottom:16px;
+    gap:10px;
+  }
+  .section-head h2{font-size:19px; font-weight:700;}
+  .section-head .see-all{font-size:12.5px; color:var(--purple-600); font-weight:600;}
+
+  /* ---------- Category chips ---------- */
+  .chips{
+    display:flex;
+    gap:9px;
+    overflow-x:auto;
+    padding-bottom:6px;
+    margin-bottom:22px;
+    scrollbar-width:thin;
+  }
+  .chip{
+    flex-shrink:0;
+    padding:9px 17px;
+    border-radius:var(--radius-pill);
+    background:var(--white);
+    border:1px solid var(--line);
+    font-size:13px;
+    font-weight:500;
+    color:var(--ink-600);
+    display:flex; align-items:center; gap:7px;
+    transition:all .15s ease;
+  }
+  .chip:hover{border-color:var(--purple-300);}
+  .chip.active{
+    background:var(--purple-600);
+    border-color:var(--purple-600);
+    color:var(--white);
+    box-shadow:var(--shadow-sm);
+  }
+
+  /* ---------- Card grid ---------- */
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+  }
+  .card{
+    background:var(--white);
+    border-radius:var(--radius-lg);
+    overflow:hidden;
+    box-shadow:var(--shadow-sm);
+    transition:transform .18s ease, box-shadow .18s ease;
+    display:flex;
+    flex-direction:column;
+  }
+  .card:hover{transform:translateY(-4px); box-shadow:var(--shadow-md);}
+  .card-thumb{
+    position:relative;
+    height:118px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:44px;
+  }
+  .card-flap{
+    position:absolute;
+    top:0; right:16px;
+    width:34px; height:22px;
+    background:rgba(255,255,255,.9);
+    clip-path:polygon(0 0, 100% 0, 100% 100%);
+  }
+  .card-fav{
+    position:absolute;
+    top:10px; left:10px;
+    width:30px; height:30px;
+    border-radius:50%;
+    background:rgba(255,255,255,.85);
+    display:flex; align-items:center; justify-content:center;
+    font-size:14px;
+    color:var(--ink-400);
+    transition:color .15s ease, transform .15s ease;
+  }
+  .card-fav.active{color:var(--pink);}
+  .card-fav:active{transform:scale(.9);}
+  .card-body{padding:14px 16px 16px; display:flex; flex-direction:column; gap:9px; flex:1;}
+  .card-tag{
+    font-size:10.5px;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:.03em;
+    color:var(--purple-600);
+  }
+  .card-title{font-family:'Baloo 2',sans-serif; font-weight:600; font-size:15px; line-height:1.3;}
+  .card-meta{font-size:11.5px; color:var(--ink-400);}
+  .card-btn{
+    margin-top:auto;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    background:var(--purple-100);
+    color:var(--purple-700);
+    font-weight:600;
+    font-size:12.5px;
+    padding:10px;
+    border-radius:var(--radius-pill);
+    transition:background .15s ease, color .15s ease;
+  }
+  .card-btn:hover{background:var(--purple-600); color:var(--white);}
+
+  .empty-state{
+    text-align:center;
+    padding:60px 20px;
+    color:var(--ink-400);
+    font-size:14px;
+  }
+  .empty-state .ico{font-size:38px; margin-bottom:10px;}
+
+  /* ---------- Bonus section ---------- */
+  .bonus-wrap{
+    background:linear-gradient(135deg,var(--purple-100),#FDF0FF);
+    border:1px solid var(--purple-300);
+    border-radius:var(--radius-lg);
+    padding:26px 28px;
+  }
+  .bonus-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    background:var(--green-100);
+    color:var(--green-600);
+    font-size:11.5px;
+    font-weight:700;
+    padding:5px 12px;
+    border-radius:var(--radius-pill);
+    margin-bottom:10px;
+  }
+  .bonus-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:14px;
+    margin-top:16px;
+  }
+  .bonus-item{
+    background:var(--white);
+    border-radius:var(--radius-md);
+    padding:14px 16px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    box-shadow:var(--shadow-sm);
+    cursor:pointer;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .bonus-item:hover{transform:translateY(-3px); box-shadow:var(--shadow-md);}
+  .bonus-arrow{margin-left:auto; color:var(--purple-600); font-size:15px; flex-shrink:0;}
+  .bonus-ico{
+    width:38px; height:38px;
+    border-radius:10px;
+    background:var(--purple-100);
+    color:var(--purple-700);
+    display:flex; align-items:center; justify-content:center;
+    font-size:17px;
+    flex-shrink:0;
+  }
+  .bonus-name{font-size:13px; font-weight:600;}
+  .bonus-sub{font-size:11px; color:var(--ink-400); margin-top:1px;}
+
+  footer{
+    text-align:center;
+    padding:36px 20px 10px;
+    font-size:12px;
+    color:var(--ink-400);
+  }
+
+  /* ---------- Video lessons ---------- */
+  .aulas-layout{
+    display:grid;
+    grid-template-columns:1fr 340px;
+    gap:22px;
+    align-items:start;
+  }
+  .player-card{
+    background:var(--white);
+    border-radius:var(--radius-lg);
+    overflow:hidden;
+    box-shadow:var(--shadow-sm);
+  }
+  .player-card video{
+    width:100%;
+    max-height:520px;
+    display:block;
+    background:#0E0B22;
+  }
+  .player-info{padding:20px 22px 24px;}
+  .player-info h3{font-size:17.5px; font-weight:600;}
+  .player-info p{font-size:13.5px; color:var(--ink-600); margin-top:8px; line-height:1.6; max-width:560px;}
+  .player-actions{display:flex; align-items:center; gap:12px; margin-top:16px;}
+  .btn-complete{
+    padding:10px 18px;
+    border-radius:var(--radius-pill);
+    background:var(--purple-100);
+    color:var(--purple-700);
+    font-weight:600;
+    font-size:13px;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    transition:background .15s ease, color .15s ease;
+  }
+  .btn-complete.done{background:var(--green-100); color:var(--green-600);}
+
+  .lessons-card{
+    background:var(--white);
+    border-radius:var(--radius-lg);
+    padding:16px;
+    box-shadow:var(--shadow-sm);
+  }
+  .lessons-card-head{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:4px 6px 12px;
+  }
+  .lessons-list{display:flex; flex-direction:column; gap:6px;}
+  .lesson-item{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:8px;
+    border-radius:var(--radius-md);
+    transition:background .15s ease;
+  }
+  .lesson-item:not(.locked){cursor:pointer;}
+  .lesson-item:not(.locked):hover{background:var(--purple-50);}
+  .lesson-item.active{background:var(--purple-100);}
+  .lesson-item.locked{opacity:.55; cursor:not-allowed;}
+  .lesson-thumb{
+    width:64px; height:46px;
+    border-radius:9px;
+    background:var(--purple-100) center/cover no-repeat;
+    position:relative;
+    flex-shrink:0;
+  }
+  .lesson-thumb .play-badge{
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    background:rgba(20,15,50,.25);
+    color:var(--white);
+    font-size:13px;
+    border-radius:9px;
+  }
+  .lesson-info{min-width:0;}
+  .lesson-num{font-size:10.5px; color:var(--ink-400); font-weight:600; text-transform:uppercase; letter-spacing:.02em;}
+  .lesson-title{font-size:12.5px; font-weight:600; line-height:1.3; margin-top:1px;
+    overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .lesson-check{
+    margin-left:auto;
+    width:22px; height:22px;
+    border-radius:50%;
+    border:1.5px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    font-size:11px;
+    color:transparent;
+    flex-shrink:0;
+    transition:all .15s ease;
+  }
+  .lesson-check.done{background:var(--green-500); border-color:var(--green-500); color:var(--white);}
+
+  @media (max-width:900px){
+    .aulas-layout{grid-template-columns:1fr;}
+  }
+
+  /* ---------- Calculadora de Precificação ---------- */
+  :root{
+    --calc-pink-1:#D8437A;
+    --calc-pink-2:#E85C7E;
+    --calc-coral:#F0836E;
+    --calc-pink-solid:#DE4574;
+    --calc-page:#FDF3F1;
+    --calc-ink:#2B2140;
+    --calc-sub:#8A8098;
+    --calc-line:#F5D9E1;
+    --calc-tag:#D8437A;
+  }
+  .calc-app{
+    background:var(--calc-page);
+    border-radius:var(--radius-lg);
+    overflow:hidden;
+    box-shadow:var(--shadow-sm);
+  }
+  .calc-header{
+    position:relative;
+    background:linear-gradient(120deg, var(--calc-pink-1) 0%, var(--calc-pink-2) 45%, var(--calc-coral) 100%);
+    padding:34px 20px 26px;
+    text-align:center;
+    overflow:hidden;
+  }
+  .calc-header::before, .calc-header::after{
+    content:'';
+    position:absolute;
+    border-radius:50%;
+    background:rgba(255,255,255,.10);
+  }
+  .calc-header::before{width:150px; height:150px; top:-60px; right:-40px;}
+  .calc-header::after{width:90px; height:90px; bottom:-50px; left:-20px;}
+  .calc-header-ico{font-size:30px; margin-bottom:6px;}
+  .calc-header h2{
+    font-family:'Playfair Display', serif;
+    font-weight:800;
+    font-size:26px;
+    color:var(--white);
+    line-height:1.25;
+  }
+  .calc-header p{
+    font-size:13px;
+    color:rgba(255,255,255,.9);
+    font-weight:500;
+    margin-top:6px;
+  }
+  .calc-body{padding:26px 22px 30px;}
+  .calc-intro{
+    text-align:center;
+    font-size:13px;
+    color:var(--calc-sub);
+    margin-bottom:22px;
+  }
+  .calc-label{
+    font-size:11.5px;
+    font-weight:700;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    color:var(--calc-tag);
+    margin:0 0 10px 2px;
+  }
+  .calc-card{
+    background:var(--white);
+    border-radius:16px;
+    box-shadow:0 4px 14px rgba(216,67,122,.07);
+    margin-bottom:24px;
+  }
+  .calc-row{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:15px 18px;
+    border-bottom:1px solid #F7ECEF;
+  }
+  .calc-row:last-child{border-bottom:none;}
+  .calc-row-ico{
+    width:38px; height:38px;
+    border-radius:10px;
+    background:#FCE9EE;
+    color:var(--calc-pink-solid);
+    display:flex; align-items:center; justify-content:center;
+    font-size:16px;
+    flex-shrink:0;
+  }
+  .calc-row-text{flex:1; min-width:0;}
+  .calc-row-title{font-size:13.5px; font-weight:600; color:var(--calc-ink);}
+  .calc-row-sub{font-size:11.5px; color:var(--calc-sub); margin-top:1px;}
+  .calc-row-input{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    background:#FCE9EE;
+    border-radius:10px;
+    padding:8px 12px;
+    flex-shrink:0;
+  }
+  .calc-row-input span{font-size:12px; font-weight:700; color:var(--calc-pink-solid);}
+  .calc-row-input input{
+    width:70px;
+    border:none;
+    background:transparent;
+    outline:none;
+    font-size:13.5px;
+    font-weight:600;
+    color:var(--calc-ink);
+    text-align:right;
+  }
+  .calc-margin-card{background:var(--white); border-radius:16px; padding:18px; box-shadow:0 4px 14px rgba(216,67,122,.07); margin-bottom:20px;}
+  .calc-margin-card > strong{font-size:13.5px; color:var(--calc-ink); display:block; margin-bottom:12px;}
+  .calc-margin-options{display:grid; grid-template-columns:repeat(3,1fr); gap:10px;}
+  .calc-margin-opt{
+    border:1.5px solid var(--calc-line);
+    border-radius:12px;
+    padding:12px 6px;
+    text-align:center;
+    background:var(--white);
+    transition:all .15s ease;
+  }
+  .calc-margin-opt .pct{font-family:'Baloo 2',sans-serif; font-weight:700; font-size:16px; color:var(--calc-pink-solid);}
+  .calc-margin-opt .lbl{font-size:10.5px; color:var(--calc-sub); margin-top:2px;}
+  .calc-margin-opt.active{
+    background:linear-gradient(120deg, var(--calc-pink-1), var(--calc-pink-2));
+    border-color:transparent;
+    box-shadow:0 6px 16px rgba(216,67,122,.28);
+  }
+  .calc-margin-opt.active .pct, .calc-margin-opt.active .lbl{color:var(--white);}
+
+  .calc-btn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    width:100%;
+    padding:16px;
+    border-radius:16px;
+    background:linear-gradient(120deg, var(--calc-pink-solid), var(--calc-coral));
+    color:var(--white);
+    font-weight:700;
+    font-size:14.5px;
+    box-shadow:0 10px 24px rgba(216,67,122,.3);
+    transition:transform .15s ease;
+  }
+  .calc-btn:hover{transform:translateY(-2px);}
+
+  .calc-result{
+    margin-top:20px;
+    background:var(--white);
+    border:1.5px dashed var(--calc-pink-2);
+    border-radius:16px;
+    padding:20px;
+    display:none;
+  }
+  .calc-result.show{display:block; animation:calcFadeIn .35s ease;}
+  @keyframes calcFadeIn{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
+  .calc-result-rows{display:flex; flex-direction:column; gap:8px; margin-bottom:14px;}
+  .calc-result-row{display:flex; justify-content:space-between; font-size:12.5px; color:var(--calc-sub);}
+  .calc-result-row b{color:var(--calc-ink); font-weight:600;}
+  .calc-result-price{
+    text-align:center;
+    padding-top:14px;
+    border-top:1px dashed var(--calc-line);
+  }
+  .calc-result-price .lbl{font-size:11.5px; color:var(--calc-sub); text-transform:uppercase; letter-spacing:.04em;}
+  .calc-result-price .val{
+    font-family:'Playfair Display', serif;
+    font-weight:800;
+    font-size:32px;
+    color:var(--calc-pink-solid);
+    margin-top:4px;
+  }
+
+  .calc-faq{margin-top:8px;}
+  .calc-faq-item{
+    background:var(--white);
+    border-radius:14px;
+    box-shadow:0 4px 14px rgba(216,67,122,.06);
+    margin-bottom:10px;
+    overflow:hidden;
+  }
+  .calc-faq-head{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:14px 16px;
+    cursor:pointer;
+  }
+  .calc-faq-head .ico{font-size:16px; flex-shrink:0;}
+  .calc-faq-head .q{flex:1; font-size:13px; font-weight:600; color:var(--calc-ink);}
+  .calc-faq-head .chev{font-size:12px; color:var(--calc-sub); transition:transform .2s ease; flex-shrink:0;}
+  .calc-faq-item.open .chev{transform:rotate(180deg); color:var(--calc-pink-solid);}
+  .calc-faq-body{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .25s ease;
+  }
+  .calc-faq-item.open .calc-faq-body{max-height:400px;}
+  .calc-faq-body-inner{
+    padding:0 16px 16px 46px;
+    font-size:12.5px;
+    color:var(--calc-sub);
+    line-height:1.65;
+    border-top:1px solid #F7ECEF;
+    padding-top:12px;
+  }
+  .calc-faq-example{
+    background:#FCE9EE;
+    color:var(--calc-pink-solid);
+    font-weight:600;
+    font-size:12px;
+    padding:10px 12px;
+    border-radius:10px;
+    margin:10px 0;
+  }
+
+  @media (max-width:560px){
+    .calc-margin-options{gap:6px;}
+    .calc-margin-opt{padding:10px 4px;}
+    .calc-header h2{font-size:22px;}
+  }
+
+  /* ---------- Toast ---------- */
+  .toast{
+    position:fixed;
+    bottom:26px; left:50%;
+    transform:translate(-50%,20px);
+    background:var(--ink-900);
+    color:var(--white);
+    padding:13px 22px;
+    border-radius:var(--radius-pill);
+    font-size:13.5px;
+    display:flex; align-items:center; gap:8px;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .25s ease, transform .25s ease;
+    z-index:100;
+    box-shadow:var(--shadow-md);
+  }
+  .toast.show{opacity:1; transform:translate(-50%,0); pointer-events:auto;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important; scroll-behavior:auto !important;}
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:1180px){
+    .grid{grid-template-columns:repeat(3,1fr);}
+    .bonus-grid{grid-template-columns:repeat(2,1fr);}
+  }
+  @media (max-width:900px){
+    .sidebar{transform:translateX(-100%);}
+    .sidebar.open{transform:translateX(0); box-shadow:var(--shadow-md);}
+    /* ---------- Login screen ---------- */
+  .login-screen{
+    position:fixed; inset:0;
+    z-index:200;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    background:linear-gradient(135deg, var(--purple-600) 0%, var(--purple-700) 55%, var(--purple-800) 100%);
+  }
+  .login-card{
+    background:var(--white);
+    border-radius:var(--radius-lg);
+    padding:38px 34px 30px;
+    width:100%;
+    max-width:380px;
+    text-align:center;
+    box-shadow:var(--shadow-md);
+  }
+  .login-mark{
+    width:56px; height:56px;
+    border-radius:16px;
+    background:var(--purple-100);
+    display:flex; align-items:center; justify-content:center;
+    font-size:26px;
+    margin:0 auto 14px;
+  }
+  .login-card h1{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:20px;
+  }
+  .login-card > p{
+    font-size:13px;
+    color:var(--ink-400);
+    margin-top:4px;
+    margin-bottom:22px;
+  }
+  .login-field{display:block; text-align:left; margin-bottom:14px;}
+  .login-field span{
+    display:block;
+    font-size:12px;
+    font-weight:600;
+    color:var(--ink-600);
+    margin-bottom:6px;
+  }
+  .login-field input{
+    width:100%;
+    padding:12px 14px;
+    border-radius:12px;
+    border:1px solid var(--line);
+    font-size:13.5px;
+    outline:none;
+    transition:border-color .15s ease, box-shadow .15s ease;
+  }
+  .login-field input:focus{border-color:var(--purple-600); box-shadow:0 0 0 4px var(--purple-100);}
+  .login-btn{
+    width:100%;
+    padding:13px;
+    border-radius:var(--radius-pill);
+    background:linear-gradient(120deg, var(--purple-600), var(--purple-700));
+    color:var(--white);
+    font-weight:600;
+    font-size:14px;
+    margin-top:6px;
+    box-shadow:var(--shadow-sm);
+    transition:transform .15s ease;
+  }
+  .login-btn:hover{transform:translateY(-2px);}
+  .login-note{
+    font-size:11px;
+    color:var(--ink-400);
+    margin-top:16px;
+    line-height:1.5;
+  }
+
+  .sidebar-user{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:rgba(255,255,255,.08);
+    border-radius:12px;
+    padding:10px 12px;
+    margin:4px 0 14px;
+  }
+  .sidebar-user-avatar{
+    width:34px; height:34px;
+    border-radius:50%;
+    background:linear-gradient(135deg,var(--pink),var(--purple-300));
+    color:var(--purple-800);
+    font-family:'Baloo 2',sans-serif;
+    font-weight:700;
+    font-size:12.5px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+  .sidebar-user-text{min-width:0;}
+  .sidebar-user-name{
+    font-size:12.5px;
+    font-weight:600;
+    color:var(--white);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .sidebar-user-email{
+    font-size:10.5px;
+    color:rgba(255,255,255,.6);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    margin-top:1px;
+  }
+
+  .sidebar-close{display:flex;}
+    .overlay.show{display:block;}
+    .main{margin-left:0;}
+    .hamburger{display:flex;}
+    .hero{grid-template-columns:1fr;}
+    .hero-art{order:-1;}
+    .stats{grid-template-columns:1fr;}
+    .grid{grid-template-columns:repeat(2,1fr);}
+    .bonus-grid{grid-template-columns:1fr;}
+    .search-box{max-width:none; width:auto; flex:1;}
+    .topbar-title{display:none;}
+  }
+  @media (max-width:560px){
+    .content{padding:22px 16px 60px;}
+    .topbar{padding:14px 16px;}
+    .grid{grid-template-columns:1fr 1fr;}
+    .hero{padding:26px 22px 34px;}
+    .hero h1{font-size:22px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="login-screen" id="loginScreen">
+  <div class="login-card">
+    <div class="login-mark">📦</div>
+    <h1>Papelaria Criativa</h1>
+    <p>Acesse sua área de membros</p>
+    <form id="loginForm" novalidate>
+      <label class="login-field">
+        <span>Nome completo</span>
+        <input type="text" id="loginName" placeholder="Seu nome" autocomplete="name" required>
+      </label>
+      <label class="login-field">
+        <span>E-mail</span>
+        <input type="email" id="loginEmail" placeholder="seu@email.com" autocomplete="email" required>
+      </label>
+      <button type="submit" class="login-btn">Entrar na área de membros</button>
+    </form>
+    <p class="login-note">🔒 Seus dados ficam salvos apenas nesta sessão do navegador.</p>
+  </div>
+</div>
+
+<div class="app" id="appRoot" style="display:none;">
+
+  <div class="overlay" id="overlay"></div>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <button class="sidebar-close" id="sidebarClose">✕</button>
+    <div class="sidebar-brand">
+      <div class="sidebar-brand-mark">📦</div>
+      <div class="sidebar-brand-text">Papelaria Criativa
+        <span>Área de Membros</span>
+      </div>
+    </div>
+
+    <div class="sidebar-user">
+      <div class="sidebar-user-avatar" id="sidebarUserAvatar">--</div>
+      <div class="sidebar-user-text">
+        <div class="sidebar-user-name" id="sidebarUserName">—</div>
+        <div class="sidebar-user-email" id="sidebarUserEmail">—</div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="nav-item active" data-view="inicio"><span class="ico">🏠</span> Início</a>
+      <a class="nav-item" data-view="todos"><span class="ico">🗂️</span> Moldes <span class="count">300+</span></a>
+      <a class="nav-item" data-view="bonus"><span class="ico">🎁</span> Bônus Exclusivos <span class="count">5</span></a>
+      <a class="nav-item" data-view="favoritos"><span class="ico">💜</span> Favoritos <span class="count" id="favCount">0</span></a>
+      <a class="nav-item" data-view="aulas"><span class="ico">🎬</span> Vídeo Aulas <span class="count">4</span></a>
+      <a class="nav-item" data-view="calculadora"><span class="ico">💰</span> Calculadora de Preço</a>
+
+      <div class="nav-label">Suporte</div>
+      <a class="nav-item" data-view="suporte"><span class="ico">💬</span> Central de Ajuda</a>
+      <a class="nav-item" data-view="perfil"><span class="ico">⚙️</span> Meu Perfil</a>
+      <a class="nav-item" href="#" id="logoutBtn"><span class="ico">🚪</span> Sair</a>
+    </nav>
+
+    <div class="sidebar-guarantee">
+      <b>🔒 Garantia de 30 dias</b>
+      Qualquer dúvida sobre os moldes, fale com a gente pela Central de Ajuda.
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <div class="main">
+    <header class="topbar">
+      <button class="hamburger" id="hamburger">☰</button>
+      <div>
+        <div class="topbar-title">Painel de Moldes</div>
+        <div class="topbar-sub" id="topbarSub">12 categorias · atualizado toda semana</div>
+      </div>
+      <div class="search-box">
+        <span class="ico">🔍</span>
+        <input type="text" id="searchInput" placeholder="Buscar molde por nome...">
+      </div>
+      <button class="topbar-bell">🔔</button>
+      <div class="topbar-avatar" id="topbarAvatar">--</div>
+    </header>
+
+    <div class="content">
+
+      <div id="dashboardView">
+
+      <!-- Hero -->
+      <section class="hero">
+        <div class="hero-scallop"></div>
+        <div>
+          <span class="hero-eyebrow">✨ Bem-vinda de volta</span>
+          <h1>Olá, <span id="heroGreetName">por aqui</span>! Seus próximos moldes estão prontos pra imprimir.</h1>
+          <p>Você já desbloqueou uma boa parte da coleção. Continue explorando as categorias e monte seu catálogo de vendas.</p>
+          <div class="hero-progress">
+            <div class="hero-progress-labels">
+              <span>Seu progresso</span>
+              <span><b>128</b> de 300 moldes explorados</span>
+            </div>
+            <div class="hero-progress-track"><div class="hero-progress-fill"></div></div>
+          </div>
+          <a class="hero-cta" data-view="bonus">🎁 Ver bônus exclusivos</a>
+        </div>
+        <div class="hero-art">
+          <div class="hero-box">🐰</div>
+          <div class="hero-box">🦄</div>
+          <div class="hero-box">🚀</div>
+        </div>
+      </section>
+
+      <!-- Stats -->
+      <section class="stats">
+        <div class="stat-card">
+          <div class="stat-ico">🗂️</div>
+          <div><div class="stat-num">300+</div><div class="stat-label">moldes disponíveis</div></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-ico">🎨</div>
+          <div><div class="stat-num">12</div><div class="stat-label">categorias temáticas</div></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-ico">🎁</div>
+          <div><div class="stat-num">5</div><div class="stat-label">bônus inclusos</div></div>
+        </div>
+      </section>
+
+      <!-- Molds section -->
+      <section class="section" id="moldesSection">
+        <div class="section-head">
+          <h2 id="gridTitle">Moldes</h2>
+          <span class="see-all" id="gridCount">24 itens</span>
+        </div>
+
+        <div class="grid" id="grid"></div>
+        <div class="empty-state" id="emptyState" style="display:none;">
+          <div class="ico">🔎</div>
+          Nenhum molde encontrado. Tente outra busca ou categoria.
+        </div>
+      </section>
+
+      <!-- Bonus section -->
+      <section class="section" id="bonusSection">
+        <div class="section-head">
+          <h2>Bônus exclusivos</h2>
+        </div>
+        <div class="bonus-wrap">
+          <span class="bonus-badge">🎁 Incluso no seu acesso</span>
+          <h3 style="font-size:16px; font-weight:600; margin-top:2px;">Materiais extras para vender mais rápido</h3>
+          <div class="bonus-grid" id="bonusGrid"></div>
+        </div>
+      </section>
+
+      </div>
+
+      <!-- Video lessons -->
+      <section class="section" id="aulasView" style="display:none;">
+        <div class="section-head">
+          <h2>Vídeo aulas</h2>
+          <span class="see-all" id="aulasProgressLabel">0 de 2 aulas concluídas</span>
+        </div>
+
+        <div class="aulas-layout">
+          <div class="player-card">
+            <video id="playerVideo" controls playsinline></video>
+            <div class="player-info">
+              <h3 id="playerTitle">Título da aula</h3>
+              <p id="playerDesc">Descrição da aula.</p>
+              <div class="player-actions">
+                <button class="btn-complete" id="btnComplete">☐ Marcar como concluída</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="lessons-card">
+            <div class="lessons-card-head">
+              <strong style="font-size:13px;">Aulas do curso</strong>
+            </div>
+            <div class="lessons-list" id="lessonsList"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Calculadora de Precificação -->
+      <section class="section" id="calculadoraView" style="display:none;">
+        <div class="calc-app">
+          <div class="calc-header">
+            <div class="calc-header-ico">💰</div>
+            <h2>Calculadora de<br>Precificação</h2>
+            <p>Descubra o preço certo para lucrar de verdade</p>
+          </div>
+
+          <div class="calc-body">
+            <p class="calc-intro">Preencha os custos do seu produto e calcule na hora 🐷</p>
+
+            <div class="calc-label">Custos do produto</div>
+            <div class="calc-card">
+              <div class="calc-row">
+                <div class="calc-row-ico">🖨️</div>
+                <div class="calc-row-text">
+                  <div class="calc-row-title">Impressão</div>
+                  <div class="calc-row-sub">gasto com a impressora</div>
+                </div>
+                <div class="calc-row-input"><span>R$</span><input type="number" inputmode="decimal" step="0.01" min="0" placeholder="0,00" id="custoImpressao"></div>
+              </div>
+              <div class="calc-row">
+                <div class="calc-row-ico">🍬</div>
+                <div class="calc-row-text">
+                  <div class="calc-row-title">Bombom / Doce</div>
+                  <div class="calc-row-sub">por unidade ou caixa</div>
+                </div>
+                <div class="calc-row-input"><span>R$</span><input type="number" inputmode="decimal" step="0.01" min="0" placeholder="0,00" id="custoDoce"></div>
+              </div>
+              <div class="calc-row">
+                <div class="calc-row-ico">🎁</div>
+                <div class="calc-row-text">
+                  <div class="calc-row-title">Presente / Recheio</div>
+                  <div class="calc-row-sub">o que vai dentro</div>
+                </div>
+                <div class="calc-row-input"><span>R$</span><input type="number" inputmode="decimal" step="0.01" min="0" placeholder="0,00" id="custoRecheio"></div>
+              </div>
+              <div class="calc-row">
+                <div class="calc-row-ico">✨</div>
+                <div class="calc-row-text">
+                  <div class="calc-row-title">Embrulho / Papel</div>
+                  <div class="calc-row-sub">fita, celofane, papel</div>
+                </div>
+                <div class="calc-row-input"><span>R$</span><input type="number" inputmode="decimal" step="0.01" min="0" placeholder="0,00" id="custoEmbrulho"></div>
+              </div>
+              <div class="calc-row">
+                <div class="calc-row-ico">📦</div>
+                <div class="calc-row-text">
+                  <div class="calc-row-title">Outros gastos</div>
+                  <div class="calc-row-sub">cola, fita, adesivo...</div>
+                </div>
+                <div class="calc-row-input"><span>R$</span><input type="number" inputmode="decimal" step="0.01" min="0" placeholder="0,00" id="custoOutros"></div>
+              </div>
+            </div>
+
+            <div class="calc-label">Margem de lucro</div>
+            <div class="calc-margin-card">
+              <strong>Qual perfil combina com você?</strong>
+              <div class="calc-margin-options" id="marginOptions">
+                <div class="calc-margin-opt" data-margin="80">
+                  <div class="pct">80%</div>
+                  <div class="lbl">Básica</div>
+                </div>
+                <div class="calc-margin-opt active" data-margin="120">
+                  <div class="pct">120%</div>
+                  <div class="lbl">Recomendada</div>
+                </div>
+                <div class="calc-margin-opt" data-margin="150">
+                  <div class="pct">150%</div>
+                  <div class="lbl">Premium</div>
+                </div>
+              </div>
+            </div>
+
+            <button class="calc-btn" id="calcBtn">Calcular meu preço ✨</button>
+
+            <div class="calc-result" id="calcResult">
+              <div class="calc-result-rows">
+                <div class="calc-result-row"><span>Custo total do produto</span><b id="resCusto">R$ 0,00</b></div>
+                <div class="calc-result-row"><span>Margem aplicada</span><b id="resMargem">120%</b></div>
+                <div class="calc-result-row"><span>Lucro estimado</span><b id="resLucro">R$ 0,00</b></div>
+              </div>
+              <div class="calc-result-price">
+                <div class="lbl">Preço sugerido de venda</div>
+                <div class="val" id="resPreco">R$ 0,00</div>
+              </div>
+            </div>
+
+            <div class="calc-label" style="margin-top:28px;">Como usar a calculadora</div>
+            <div class="calc-faq" id="calcFaq"></div>
+          </div>
+        </div>
+      </section>
+
+      <footer>© 2026 Papelaria Criativa · Acesso vitalício · Dúvidas? Fale com o suporte</footer>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast">✅ Download iniciado</div>
+
+<script>
+  // ---------------- Demo data ----------------
+  const molds = [
+    {title:"Moldes - Parte 1", tag:"Pasta 1", emoji:"📦", color:"#5B4FE0", link:"https://drive.google.com/drive/folders/1fKf7YKQVN2Zyi59cS97deKSCfCvE7h9m?usp=sharing"},
+    {title:"Moldes - Parte 2", tag:"Pasta 2", emoji:"📦", color:"#0FB5C4", link:"https://drive.google.com/drive/folders/1fKf7YKQVN2Zyi59cS97deKSCfCvE7h9m?usp=sharing"},
+  ];
+
+  const bonusItems = [
+    {name:"Molde de Maleta do Stitch", sub:"Pasta do Google Drive", ico:"🧳", link:"https://drive.google.com/drive/folders/1fKf7YKQVN2Zyi59cS97deKSCfCvE7h9m?usp=sharing"},
+    {name:"Card Balinhas", sub:"Pasta do Google Drive", ico:"🍬", link:"https://drive.google.com/drive/folders/1fKf7YKQVN2Zyi59cS97deKSCfCvE7h9m?usp=sharing"},
+    {name:"Sacolas Personalizadas", sub:"Pasta do Google Drive", ico:"🛍️", link:"https://drive.google.com/drive/folders/1VaFolsLJY_sR4l3zBLCu3I8LlhMWYvRc"},
+    {name:"Moldes Infantil", sub:"Pasta do Google Drive", ico:"🧸", link:"https://drive.google.com/drive/folders/1pTqtOxUsPtV6z8rD8fE_VwZQI6xYfKr2"},
+    {name:"Kit Festa", sub:"Pasta do Google Drive", ico:"🎉", link:"https://drive.google.com/drive/folders/1ODdYr_fKhzA-XL7OxenVT-Q5Z4tIh2jf"},
+  ];
+
+  const catLabels = {
+    todos:"Moldes", personagens:"Personagens", princesas:"Princesas",
+    pets:"Pets & Animais", fantasia:"Fantasia", datas:"Datas Comemorativas"
+  };
+
+  const lessons = [
+    {
+      id:1,
+      title:"Montando a Caixinha Cenário",
+      desc:"Veja o passo a passo completo de como cortar, dobrar e montar sua caixinha cenário do zero, pronta para vender.",
+      src:"videos/video-aula-1.mp4",
+      poster:"images/poster-1.jpg",
+      duration:"2:18"
+    },
+    {
+      id:2,
+      title:"Como Usar o Arquivo Digital",
+      desc:"Entenda como abrir, editar e imprimir corretamente o arquivo digital antes de montar sua caixinha.",
+      src:"videos/video-aula-2.mp4",
+      poster:"images/poster-2.jpg",
+      duration:"2:03"
+    },
+    {
+      id:3,
+      title:"Dicas para Vender Mais Rápido",
+      desc:"Em breve: estratégias práticas para divulgar e vender suas caixinhas nas redes sociais.",
+      locked:true,
+      duration:"--:--"
+    },
+    {
+      id:4,
+      title:"Precificação e Embalagem",
+      desc:"Em breve: como precificar seu trabalho e caprichar na embalagem para entrega.",
+      locked:true,
+      duration:"--:--"
+    },
+  ];
+
+  let completedLessons = new Set();
+  let currentLessonId = 1;
+
+  // ---------------- Login ----------------
+  let currentUser = { name:"", email:"" };
+
+  function getInitials(name){
+    const parts = name.trim().split(/\s+/).filter(Boolean);
+    if (parts.length === 0) return "--";
+    if (parts.length === 1) return parts[0].slice(0,2).toUpperCase();
+    return (parts[0][0] + parts[parts.length-1][0]).toUpperCase();
+  }
+
+  function applyUserToUI(){
+    const firstName = currentUser.name.trim().split(/\s+/)[0] || "por aqui";
+    document.getElementById('heroGreetName').textContent = firstName;
+    document.getElementById('topbarAvatar').textContent = getInitials(currentUser.name);
+    document.getElementById('sidebarUserAvatar').textContent = getInitials(currentUser.name);
+    document.getElementById('sidebarUserName').textContent = currentUser.name;
+    document.getElementById('sidebarUserEmail').textContent = currentUser.email;
+  }
+
+  document.getElementById('loginForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('loginName').value.trim();
+    const email = document.getElementById('loginEmail').value.trim();
+    if (!name || !email) return;
+    currentUser = { name, email };
+    applyUserToUI();
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('appRoot').style.display = 'flex';
+  });
+
+  document.getElementById('logoutBtn').addEventListener('click', (e) => {
+    e.preventDefault();
+    currentUser = { name:"", email:"" };
+    document.getElementById('loginForm').reset();
+    document.getElementById('appRoot').style.display = 'none';
+    document.getElementById('loginScreen').style.display = 'flex';
+  });
+
+  let favorites = new Set();
+  let currentCat = "todos";
+  let currentView = "inicio";
+  let searchTerm = "";
+
+  const grid = document.getElementById('grid');
+  const emptyState = document.getElementById('emptyState');
+  const gridTitle = document.getElementById('gridTitle');
+  const gridCount = document.getElementById('gridCount');
+  const favCountEl = document.getElementById('favCount');
+
+  function renderGrid(){
+    let list = molds.filter(m => {
+      const matchesSearch = m.title.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesView = currentView !== "favoritos" || favorites.has(m.title);
+      return matchesSearch && matchesView;
+    });
+
+    grid.innerHTML = "";
+    emptyState.style.display = list.length ? "none" : "block";
+
+    list.forEach(m => {
+      const isFav = favorites.has(m.title);
+      const card = document.createElement('div');
+      card.className = "card";
+      card.innerHTML = `
+        <div class="card-thumb" style="background:${m.color}22;">
+          <div class="card-flap" style="clip-path:polygon(0 0,100% 0,100% 100%); background:${m.color}55;"></div>
+          <button class="card-fav ${isFav ? 'active' : ''}" title="Favoritar">${isFav ? '♥' : '♡'}</button>
+          <span>${m.emoji}</span>
+        </div>
+        <div class="card-body">
+          <span class="card-tag">${m.tag}</span>
+          <div class="card-title">${m.title}</div>
+          <div class="card-meta">Pasta do Google Drive · PDF</div>
+          <a class="card-btn" href="${m.link}" target="_blank" rel="noopener">⬇ Baixar PDF</a>
+        </div>
+      `;
+      card.querySelector('.card-fav').addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (favorites.has(m.title)) favorites.delete(m.title); else favorites.add(m.title);
+        favCountEl.textContent = favorites.size;
+        renderGrid();
+      });
+      card.querySelector('.card-btn').addEventListener('click', () => showToast("📂 Abrindo a pasta de moldes no Google Drive..."));
+      grid.appendChild(card);
+    });
+
+    gridCount.textContent = list.length + (list.length === 1 ? " item" : " itens");
+    gridTitle.textContent = currentView === "favoritos" ? "Seus favoritos" : "Moldes";
+  }
+
+  function renderBonus(){
+    const bonusGrid = document.getElementById('bonusGrid');
+    bonusGrid.innerHTML = bonusItems.map(b => `
+      <a class="bonus-item" href="${b.link}" target="_blank" rel="noopener">
+        <div class="bonus-ico">${b.ico}</div>
+        <div>
+          <div class="bonus-name">${b.name}</div>
+          <div class="bonus-sub">${b.sub}</div>
+        </div>
+        <span class="bonus-arrow">↗</span>
+      </a>
+    `).join("");
+  }
+
+  // ---------------- Video lessons ----------------
+  function renderLessons(){
+    const list = document.getElementById('lessonsList');
+    list.innerHTML = lessons.map(l => `
+      <div class="lesson-item ${l.id === currentLessonId ? 'active' : ''} ${l.locked ? 'locked' : ''}" data-lesson="${l.id}">
+        <div class="lesson-thumb" style="${l.poster ? `background-image:url('${l.poster}');` : ''}">
+          <div class="play-badge">${l.locked ? '🔒' : '▶'}</div>
+        </div>
+        <div class="lesson-info">
+          <div class="lesson-num">Aula ${l.id} · ${l.duration}</div>
+          <div class="lesson-title">${l.title}</div>
+        </div>
+        <div class="lesson-check ${completedLessons.has(l.id) ? 'done' : ''}">✓</div>
+      </div>
+    `).join("");
+
+    list.querySelectorAll('.lesson-item').forEach(item => {
+      item.addEventListener('click', () => loadLesson(parseInt(item.dataset.lesson, 10)));
+    });
+  }
+
+  function loadLesson(id){
+    const lesson = lessons.find(l => l.id === id);
+    if (!lesson) return;
+    if (lesson.locked){
+      showToast("🔒 Essa aula ainda não foi liberada");
+      return;
+    }
+    currentLessonId = id;
+    const video = document.getElementById('playerVideo');
+    video.pause();
+    video.src = lesson.src;
+    video.poster = lesson.poster || "";
+    document.getElementById('playerTitle').textContent = `Aula ${lesson.id}: ${lesson.title}`;
+    document.getElementById('playerDesc').textContent = lesson.desc;
+    updateCompleteBtn();
+    renderLessons();
+  }
+
+  function updateCompleteBtn(){
+    const btn = document.getElementById('btnComplete');
+    const done = completedLessons.has(currentLessonId);
+    btn.classList.toggle('done', done);
+    btn.textContent = done ? "✅ Aula concluída" : "☐ Marcar como concluída";
+  }
+
+  function updateAulasProgress(){
+    const total = lessons.filter(l => !l.locked).length;
+    document.getElementById('aulasProgressLabel').textContent = `${completedLessons.size} de ${total} aulas concluídas`;
+  }
+
+  document.getElementById('btnComplete').addEventListener('click', () => {
+    if (completedLessons.has(currentLessonId)) completedLessons.delete(currentLessonId);
+    else completedLessons.add(currentLessonId);
+    updateCompleteBtn();
+    renderLessons();
+    updateAulasProgress();
+  });
+
+  // Search
+  document.getElementById('searchInput').addEventListener('input', (e) => {
+    searchTerm = e.target.value;
+    renderGrid();
+  });
+
+  // ---------------- Calculadora de Precificação ----------------
+  const calcFaqItems = [
+    {
+      ico:"📝", q:"Como digitar os valores",
+      open:false,
+      a:"Digite só os números, usando vírgula ou ponto para os centavos (ex: 12,50). Não é preciso escrever o \"R$\", o campo já entende que é dinheiro."
+    },
+    {
+      ico:"🔢", q:"Ordem de preenchimento",
+      open:false,
+      a:"Preencha de cima para baixo: comece pelo custo de impressão, depois o doce/presente que vai dentro, o embrulho e, por último, outros gastos pequenos como cola e fita."
+    },
+    {
+      ico:"🖨️", q:"O que é o custo de impressão?",
+      open:true,
+      a:"É tudo que você gastou para imprimir o molde. Isso inclui a tinta da impressora e o papel.<br><br>Uma forma fácil de calcular: se você imprime em casa, divida o custo do cartucho de tinta pelo número de páginas que ele rende, e some com o custo da folha de papel.",
+      example:"Exemplo: cartucho R$30 ÷ 300 páginas = R$0,10 por folha + papel R$0,05 = R$0,15 por impressão",
+      after:"Se mandou imprimir numa gráfica ou copiadora, coloque o valor que pagou por aquela impressão específica."
+    },
+    {
+      ico:"🍬", q:"O que é o bombom ou doce?",
+      open:false,
+      a:"É o valor do doce, bombom ou guloseima que vai dentro da caixinha. Calcule o preço por unidade (ou o preço da caixa dividido pela quantidade que você usa em cada produto)."
+    },
+    {
+      ico:"🎁", q:"O que é o presente ou recheio?",
+      open:false,
+      a:"É o valor de qualquer mimo, brinde ou recheio que vai dentro da caixinha além do doce — como um brinquedinho, um bilhete especial ou outro mimo escolhido pelo cliente."
+    },
+    {
+      ico:"✨", q:"O que entra no embrulho?",
+      open:false,
+      a:"Fita, celofane, papel de seda, tag e qualquer material usado para fechar e decorar a caixinha por fora."
+    },
+    {
+      ico:"📦", q:"O que são 'outros gastos'?",
+      open:false,
+      a:"Cola, fita adesiva, etiquetas e qualquer pequeno material que você usa mas não se encaixa nas categorias acima. Vale dividir o custo da embalagem pela quantidade de unidades que você produz com ela."
+    },
+  ];
+
+  function renderCalcFaq(){
+    const wrap = document.getElementById('calcFaq');
+    wrap.innerHTML = calcFaqItems.map((item, i) => `
+      <div class="calc-faq-item ${item.open ? 'open' : ''}" data-idx="${i}">
+        <div class="calc-faq-head">
+          <span class="ico">${item.ico}</span>
+          <span class="q">${item.q}</span>
+          <span class="chev">▾</span>
+        </div>
+        <div class="calc-faq-body">
+          <div class="calc-faq-body-inner">
+            ${item.a}
+            ${item.example ? `<div class="calc-faq-example">${item.example}</div>` : ""}
+            ${item.after ? `<p>${item.after}</p>` : ""}
+          </div>
+        </div>
+      </div>
+    `).join("");
+
+    wrap.querySelectorAll('.calc-faq-head').forEach(head => {
+      head.addEventListener('click', () => {
+        const item = head.closest('.calc-faq-item');
+        const idx = parseInt(item.dataset.idx, 10);
+        calcFaqItems[idx].open = !calcFaqItems[idx].open;
+        item.classList.toggle('open', calcFaqItems[idx].open);
+      });
+    });
+  }
+
+  let selectedMargin = 120;
+  document.getElementById('marginOptions').addEventListener('click', (e) => {
+    const opt = e.target.closest('.calc-margin-opt');
+    if (!opt) return;
+    document.querySelectorAll('.calc-margin-opt').forEach(o => o.classList.remove('active'));
+    opt.classList.add('active');
+    selectedMargin = parseInt(opt.dataset.margin, 10);
+  });
+
+  function formatBRL(n){
+    return "R$ " + n.toFixed(2).replace('.', ',');
+  }
+
+  document.getElementById('calcBtn').addEventListener('click', () => {
+    const ids = ["custoImpressao","custoDoce","custoRecheio","custoEmbrulho","custoOutros"];
+    let total = 0;
+    ids.forEach(id => {
+      const val = parseFloat(document.getElementById(id).value.replace(',', '.'));
+      if (!isNaN(val)) total += val;
+    });
+
+    const lucro = total * (selectedMargin / 100);
+    const preco = total + lucro;
+
+    document.getElementById('resCusto').textContent = formatBRL(total);
+    document.getElementById('resMargem').textContent = selectedMargin + "%";
+    document.getElementById('resLucro').textContent = formatBRL(lucro);
+    document.getElementById('resPreco').textContent = formatBRL(preco);
+    document.getElementById('calcResult').classList.add('show');
+    document.getElementById('calcResult').scrollIntoView({behavior:"smooth", block:"nearest"});
+  });
+
+  // Sidebar nav / view switching
+  function setView(view){
+    currentView = view;
+    document.querySelectorAll('.nav-item[data-view]').forEach(n => n.classList.toggle('active', n.dataset.view === view));
+
+    const dashboardView = document.getElementById('dashboardView');
+    const aulasView = document.getElementById('aulasView');
+    const calculadoraView = document.getElementById('calculadoraView');
+    const moldesSection = document.getElementById('moldesSection');
+    const bonusSection = document.getElementById('bonusSection');
+    const topbarSub = document.getElementById('topbarSub');
+
+    document.getElementById('playerVideo').pause();
+    dashboardView.style.display = "none";
+    aulasView.style.display = "none";
+    calculadoraView.style.display = "none";
+
+    if (view === "aulas"){
+      aulasView.style.display = "block";
+      topbarSub.textContent = "Assista no seu ritmo · marque as aulas concluídas";
+      window.scrollTo({top:0, behavior:"smooth"});
+    } else if (view === "calculadora"){
+      calculadoraView.style.display = "block";
+      topbarSub.textContent = "Descubra o preço certo para lucrar de verdade";
+      window.scrollTo({top:0, behavior:"smooth"});
+    } else {
+      dashboardView.style.display = "";
+      topbarSub.textContent = "12 categorias · atualizado toda semana";
+
+      if (view === "bonus"){
+        bonusSection.scrollIntoView({behavior:"smooth", block:"start"});
+      } else if (view === "suporte"){
+        showToast("💬 Central de ajuda: em breve por aqui");
+      } else if (view === "perfil"){
+        showToast(`👤 ${currentUser.name} · ${currentUser.email}`);
+      } else {
+        moldesSection.scrollIntoView({behavior:"smooth", block:"start"});
+      }
+      renderGrid();
+    }
+    closeSidebar();
+  }
+
+  document.querySelectorAll('[data-view]').forEach(el => {
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      setView(el.dataset.view);
+    });
+  });
+
+  // Mobile sidebar
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('overlay');
+  function openSidebar(){ sidebar.classList.add('open'); overlay.classList.add('show'); }
+  function closeSidebar(){ sidebar.classList.remove('open'); overlay.classList.remove('show'); }
+  document.getElementById('hamburger').addEventListener('click', openSidebar);
+  document.getElementById('sidebarClose').addEventListener('click', closeSidebar);
+  overlay.addEventListener('click', closeSidebar);
+
+  // Toast
+  let toastTimer;
+  function showToast(msg){
+    const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 2600);
+  }
+
+  renderGrid();
+  renderBonus();
+  renderLessons();
+  loadLesson(1);
+  updateAulasProgress();
+  renderCalcFaq();
+</script>
+</body>
+</html>
